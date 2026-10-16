@@ -1,6 +1,6 @@
 # Qore Code — a coding helper that runs on your own computer
 
-**Free · Windows · Linux · works offline**
+**Free · Windows · Mac · Linux · works offline**
 
 <img width="1600" height="1000" alt="image" src="https://github.com/user-attachments/assets/816bb1a8-045e-4701-a9ae-a8ad9a2f204b" />
 
@@ -20,6 +20,7 @@ Ask for anything you want done to the files in a folder, in plain English: "What
 | | |
 |---|---|
 | **Windows 10/11 (64-bit)** | [QoreCode-2026.10.12-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.12/QoreCode-2026.10.12-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
+| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.12-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.12/QoreCode-2026.10.12-macos.zip). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
 | **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.12-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.12/QoreCode-2026.10.12-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
 
 ## Good to know
@@ -31,7 +32,7 @@ Ask for anything you want done to the files in a folder, in plain English: "What
 
 ## بالعربي
 
-**Qore Code** مساعد برمجة يعمل على جهازك وبدون إنترنت: اطلب ما تريد بلغة بسيطة، وهو يقرأ ويعدّل الملفات داخل المجلد الذي تختاره فقط. محرّك النماذج مدمج، فلا حاجة لتثبيت أي شيء آخر. مجاني لويندوز ولينكس.
+**Qore Code** مساعد برمجة يعمل على جهازك وبدون إنترنت: اطلب ما تريد بلغة بسيطة، وهو يقرأ ويعدّل الملفات داخل المجلد الذي تختاره فقط. محرّك النماذج مدمج، فلا حاجة لتثبيت أي شيء آخر. مجاني لويندوز وماك ولينكس.
 
 </div>
 
