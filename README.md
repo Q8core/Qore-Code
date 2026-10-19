@@ -23,6 +23,18 @@ Ask for anything you want done to the files in a folder, in plain English: "What
 | **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.12-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.12/QoreCode-2026.10.12-macos.zip). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
 | **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.12-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.12/QoreCode-2026.10.12-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
 
+## How it compares — benchmark (2026-10-19)
+
+Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qwen3-Coder 30B, Qwen3-Coder-Next 80B, Llama 3.3 70B) with the **same plain-language prompts**, the same 10-minute limit and the same automatic grader. Nothing any tool produced was edited.
+
+| Tool | Tasks passed (of 24) |
+|---|---|
+| **Qore Code** | **12 (50%)** |
+| opencode | 7 (29%) |
+| Qwen Code | 7 (29%) |
+
+Every task, model and time: **[BENCHMARK.md](BENCHMARK.md)** · full report (Word): **[Qore-Code-Benchmark-2026-10-19.docx](Qore-Code-Benchmark-2026-10-19.docx)**
+
 ## Good to know
 
 - How fast and how well it answers depends on the model you pick and on your computer: a bigger model is smarter, but it needs more memory and is slower.
