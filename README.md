@@ -25,13 +25,13 @@ Ask for anything you want done to the files in a folder, in plain English: "What
 
 ## How it compares — benchmark (2026-10-19)
 
-Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qwen3-Coder 30B, Qwen3-Coder-Next 80B, Llama 3.3 70B) with the **same plain-language prompts**, the same 10-minute limit and the same automatic grader. Nothing any tool produced was edited.
+Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qwen3-Coder 30B, Qwen3-Coder-Next 80B, Llama 3.3 70B) with the **same plain-language prompts**, the same 10-minute limit and the same automatic grader. Nothing any tool produced was edited. Grading corrected 2026-10-20: six grader mistakes were fixed and every row was graded again (the first version said 12 / 7 / 7).
 
 | Tool | Tasks passed (of 24) |
 |---|---|
-| **Qore Code** | **12 (50%)** |
-| opencode | 7 (29%) |
-| Qwen Code | 7 (29%) |
+| **Qore Code** | **14 (58%)** |
+| opencode | 9 (38%) |
+| Qwen Code | 10 (42%) |
 
 Every task, model and time: **[BENCHMARK.md](BENCHMARK.md)** · full report (Word): **[Qore-Code-Benchmark-2026-10-19.docx](Qore-Code-Benchmark-2026-10-19.docx)**
 
