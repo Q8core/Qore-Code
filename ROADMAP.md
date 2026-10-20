@@ -1,6 +1,6 @@
 # Roadmap
 
-Updated 2026-10-20.
+Updated 2026-10-20. Latest version: 2026.10.20 (Windows and Linux; the Mac build is 2026.10.18).
 
 ## Status
 
@@ -73,13 +73,13 @@ Fixed after the re-run: a repair round reset the step-extension counter, allowin
 3. **Loop guard.** Qore Code's own refusals (copied placeholder, unknown tool, loop guard) are no longer counted as failed edits.
 4. **Prompt structure.** Project state attached to an internal note is labelled as not a new request.
 5. **Godot check.** Each written scene, resource or script is loaded by Godot headless (about 1 s) and its errors are added to the tool result.
-6. **Chat mode** (in development, not in a released build). A switch that sends messages straight to the model: no tools, no project access, no checks.
+6. **Chat mode** (in 2026.10.20). A switch that sends messages straight to the model: no tools, no project access, no checks.
 
 ## Run 3, 2026-10-20 (Qore Code only)
 
 Same tasks, prompts, settings, 10-minute limit and grader as the re-run. Each task ran twice:
 - **Agent mode**: Qore Code as normal.
-- **Chat mode**: the model alone. The code blocks from its answer were saved into the files it named, as a user would copy them, and graded the same way. Chat mode has no image tool, so the image task is Agent mode only.
+- **Chat mode**: the model alone. The code blocks from its answer were saved into the files it named and graded the same way. Chat mode has no image tool, so the image task is Agent mode only.
 
 All results were checked manually. Three automatic grades were wrong and are corrected below:
 - Image full-loop (80B, Agent): graded fail because the game also saves a screenshot to a file. The game's background is the picture made by the image tool. Counted as pass; the grader rule is fixed.
@@ -125,5 +125,4 @@ Setup: RTX PRO 6000 Blackwell 96 GB (re-run rows on the Workstation edition of t
 ## Next
 
 1. **Time limit.** Both Agent mode failures reached the 10-minute limit. Run the app check earlier in long turns, so its result reaches the model while there is time to act on it.
-2. **Chat mode.** Finish it for a release build.
-3. **Benchmark v2.** Multiple runs per task, deterministic checks instead of a vision model where possible, more task types (bug fixes in existing code, refactoring, tests), and all prompts, outputs, logs and grader code published.
+2. **Benchmark v2.** Multiple runs per task, deterministic checks instead of a vision model where possible, more task types (bug fixes in existing code, refactoring, tests), and all prompts, outputs, logs and grader code published.

@@ -13,15 +13,16 @@ Ask for anything you want done to the files in a folder, in plain English: "What
 - **Built-in text reading from images (OCR)** in English and Arabic.
 - **Pictures:** ask in the chat (`/image a red lighthouse at sunset`). The picture model is a one-time 20.5 GB download inside the app.
 - **Optional cloud models:** already have an OpenAI, OpenRouter, DeepSeek or Groq account? Paste your own API key to use their models.
+- **Chat mode:** switch it on to talk to the model directly, with no tools and no checks. Type `/chat` to switch on and `/agent` to switch back.
 - Desktop app plus a terminal version (`qorecode-cli`).
 
-## ⬇️ Download (2026.10.12)
+## ⬇️ Download (2026.10.20)
 
 | | |
 |---|---|
-| **Windows 10/11 (64-bit)** | [QoreCode-2026.10.12-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.12/QoreCode-2026.10.12-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
-| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.12-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.12/QoreCode-2026.10.12-macos.zip). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
-| **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.12-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.12/QoreCode-2026.10.12-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
+| **Windows 10/11 (64-bit)** | [QoreCode-2026.10.20-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.20/QoreCode-2026.10.20-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
+| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build; the Mac build of 2026.10.20 is not ready yet). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
+| **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.20-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.20/QoreCode-2026.10.20-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
 
 ## How it compares — benchmark (2026-10-19)
 
@@ -35,7 +36,9 @@ Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qw
 
 Every task, model and time: **[BENCHMARK.md](BENCHMARK.md)** · full report (Word): **[Qore-Code-Benchmark-2026-10-19.docx](Qore-Code-Benchmark-2026-10-19.docx)**
 
-Where Qore Code still fails, why, and what we are fixing next: **[ROADMAP.md](ROADMAP.md)**
+Each task was run once per tool and model, so a difference of a few tasks is within run-to-run variation.
+
+Later Qore Code runs with the fixes this benchmark led to, where it still fails, and what is next: **[ROADMAP.md](ROADMAP.md)**
 
 ## Good to know
 
