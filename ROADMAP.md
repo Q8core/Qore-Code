@@ -66,12 +66,64 @@ No change on 80B. The app check worked as intended on the notes app (found an ex
 
 Fixed after the re-run: a repair round reset the step-extension counter, allowing 100 steps instead of 80.
 
-## Next (round 2)
+## Changes after the re-run (round 2)
 
-1. **Context trimming by hardware.** Size the trimming budget from the actual context window, GPU/CPU and memory of the machine; keep recent file contents and the latest version of each written file; measure prompt size with real token counts from the server rather than an estimate.
-2. **Loop guard.** Do not count Qore Code's own refusals (placeholder detected, unknown tool) as model failures.
-3. **Prompt structure.** Attach project state to the original request, not to internal notes.
-4. **Engine file check.** Validate Godot scene/script files right after they are written.
-5. **Benchmark v2.** Multiple runs per task, deterministic checks instead of a vision model where possible, more task types (bug fixes in existing code, refactoring, tests), and all prompts, outputs, logs and grader code published.
+1. **Prompt size.** The size estimate counted the whole conversation twice (screenshots included), so it reported 1.7–3.2 times the real size and trimmed the conversation early. Ollama's own log showed no prompt was ever cut; the largest was 23,158 tokens. Fixed; the trimming rules themselves are unchanged.
+2. **Trimming.** A new screenshot no longer removes the three most recent tool results; text sent with a screenshot is kept; a short result is never replaced by a longer placeholder; a call whose result is kept keeps its arguments.
+3. **Loop guard.** Qore Code's own refusals (copied placeholder, unknown tool, loop guard) are no longer counted as failed edits.
+4. **Prompt structure.** Project state attached to an internal note is labelled as not a new request.
+5. **Godot check.** Each written scene, resource or script is loaded by Godot headless (about 1 s) and its errors are added to the tool result.
+6. **Chat mode** (in development, not in a released build). A switch that sends messages straight to the model: no tools, no project access, no checks.
 
-The next run's results will be added here.
+## Run 3, 2026-10-20 (Qore Code only)
+
+Same tasks, prompts, settings, 10-minute limit and grader as the re-run. Each task ran twice:
+- **Agent mode**: Qore Code as normal.
+- **Chat mode**: the model alone. The code blocks from its answer were saved into the files it named, as a user would copy them, and graded the same way. Chat mode has no image tool, so the image task is Agent mode only.
+
+All results were checked manually. Three automatic grades were wrong and are corrected below:
+- Image full-loop (80B, Agent): graded fail because the game also saves a screenshot to a file. The game's background is the picture made by the image tool. Counted as pass; the grader rule is fixed.
+- 3D game (27B, Agent): graded fail by the vision model. The player walks and the view turns (49.6% of pixels changed). Counted as pass under the published rule (view moves or counter goes up). Its pickups do not work.
+- 3D game (27B, Chat): graded pass by the vision model. The screen is black and does not change, also in Firefox. Counted as fail.
+
+Two Chat mode rows were run again after fixes to Qore Code and to the benchmark: the 2D game (27B), whose answer had been cut off by Qore Code's repetition check, and the 3D house (80B), whose file type was not recognised. The second run is shown.
+
+| Task | 27B Agent | 27B Chat | 80B Agent | 80B Chat |
+|---|---|---|---|---|
+| Tip calculator | PASS | PASS | PASS | PASS |
+| To-do list that saves | PASS | PASS | PASS | PASS |
+| Notes with search + save | PASS | PASS | PASS | PASS |
+| 2D jump game | fail | PASS | PASS | PASS |
+| 3D walk + pick up + counter | PASS (manual) | fail (manual) | fail | PASS |
+| Debug a broken program | PASS | fail | PASS | fail |
+| 3D house model file | — | — | PASS | fail |
+| Expense tracker + chart | — | — | PASS | fail |
+| SSH script | — | — | PASS | fail |
+| Image full-loop | — | — | PASS (manual) | — |
+| **Total** | **5 / 6** | **4 / 6** | **9 / 10** | **5 / 9** |
+
+Agent mode: **14 / 16**. Chat mode: **9 / 15**. On 80B, Agent mode went from 7 / 10 to 9 / 10: the expense tracker and the image task passed for the first time.
+
+Agent mode failures:
+
+| Task (model) | Cause |
+|---|---|
+| 2D game (27B) | Pressing Space crashes the game (`self.player.jump` is an image, not a function). The 10-minute limit was reached before Qore Code's app check ran. |
+| 3D game (80B) | `scenes/player.tscn` has a parse error. The Godot check reported it 6 times; the model changed other files and the time ran out. |
+
+Chat mode failures:
+
+| Task (model) | Cause |
+|---|---|
+| Debug a broken program (27B, 80B), SSH script (80B) | The model cannot see the project's files in Chat mode. |
+| 3D game (27B) | Black screen. |
+| 3D house (80B) | The model wrote a glTF file whose embedded data repeats one fragment until the answer is cut off. Same output on both runs. |
+| Expense tracker (80B) | Imports matplotlib without telling the user to install it, so it does not start. |
+
+Setup: RTX PRO 6000 Blackwell 96 GB (re-run rows on the Workstation edition of the same GPU), Ollama, temperature 0.1, seed 20261019, 32k context. Each cell is a single run.
+
+## Next
+
+1. **Time limit.** Both Agent mode failures reached the 10-minute limit. Run the app check earlier in long turns, so its result reaches the model while there is time to act on it.
+2. **Chat mode.** Finish it for a release build.
+3. **Benchmark v2.** Multiple runs per task, deterministic checks instead of a vision model where possible, more task types (bug fixes in existing code, refactoring, tests), and all prompts, outputs, logs and grader code published.
