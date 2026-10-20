@@ -35,6 +35,8 @@ Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qw
 
 Every task, model and time: **[BENCHMARK.md](BENCHMARK.md)** · full report (Word): **[Qore-Code-Benchmark-2026-10-19.docx](Qore-Code-Benchmark-2026-10-19.docx)**
 
+Where Qore Code still fails, why, and what we are fixing next: **[ROADMAP.md](ROADMAP.md)**
+
 ## Good to know
 
 - How fast and how well it answers depends on the model you pick and on your computer: a bigger model is smarter, but it needs more memory and is slower.

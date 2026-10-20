@@ -61,3 +61,5 @@ Same local Q8 models, same plain-language prompts, same 10-minute limit, same au
 | Image full-loop | Qwen3-Coder-Next 80B (MoE) | fail · 2401s (cap) | fail · 442s |
 
 Setup: 1 × RTX PRO 6000 Blackwell 96 GB · Ollama 0.40.6 · temperature 0.1, seed 20261019, 32k context · Qore Code 2026.10.18 (844248d) · opencode 1.19.3 · Qwen Code 0.15.10.
+
+Where Qore Code still fails, why, and what we are fixing next: **[ROADMAP.md](ROADMAP.md)**.
