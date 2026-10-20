@@ -1,75 +1,77 @@
-# Where Qore Code stands, and what comes next
+# Roadmap
 
-Last updated 2026-10-20, after a re-run of the [local-model benchmark](BENCHMARK.md) with our first round of fixes.
+Updated 2026-10-20.
 
-## Where we are
+## Status
 
-On the same local Q8 models, prompts, time limit and grader, Qore Code passed **14 of 24** tasks. opencode passed **9 of 24** and Qwen Code **10 of 24**.
+Benchmark ([BENCHMARK.md](BENCHMARK.md)): same local Q8 models, prompts, 10-minute limit and grader for all three tools.
 
-These numbers were corrected on 2026-10-20. The first version (12 / 7 / 7) was graded by a grader with mistakes. We found six by checking it by hand, fixed them, and graded every row of every tool again. Every change went from fail to pass, for all three tools. The full report lists each fix.
+| Tool | Passed (of 24) |
+|---|---|
+| Qore Code | 14 |
+| opencode | 9 |
+| Qwen Code | 10 |
 
-Qore Code is ahead on this benchmark, but **it still fails tasks it should pass**. We read the run log of every task the latest Qore Code build failed, and this is what they show:
+Each cell is a single run, so a difference of a few tasks is within run-to-run variation. The first published version (12 / 7 / 7) had grader bugs; six were fixed and all rows re-graded. All changes were fail → pass, for all three tools.
 
-| Task (model) | What went wrong | Whose problem |
+Failures in the shipped Qore Code build (from the run logs):
+
+| Task (model) | Cause |
+|---|---|
+| Notes app (30B) | New Note button raised an exception (missing import). Qore Code's check found it after the 40-step limit, with no steps left to fix it. |
+| Expense tracker (80B) | App did not start: a required library was not installed. The final check ran code checks only and never launched the app. |
+| 3D game (30B) | 40-step limit reached with most of the time left. Scene file written in the wrong format (model). |
+| 3D game (80B) | Model rewrote the same file unchanged; the repeat detector ended the turn. |
+| Image full-loop (80B) | Model drew the background in code instead of calling the image tool; no check covered this. |
+
+Llama 3.3 70B produced no working program in most runs with any tool (Qore Code 2/9, others 0/9).
+
+## Changes after the benchmark (round 1)
+
+1. **App check before finishing.** Qore Code launches the app on a hidden display and checks that it starts. For games it sends the keys the request mentions and checks that the screen changes. For apps that must save data, it adds an entry, closes and reopens the app, and checks the entry is still there. Failures are returned to the model with the error, within the existing repair-round limit.
+2. **Step extension.** At the step limit, if files changed in the last 10 steps or Qore Code's own checks still fail, the turn gets 20 more steps, at most twice per turn. Step-based, not time-based.
+3. **Repeat redirect.** On the first repeated identical tool call, the model gets the failing output and one chance to change approach. A second repeat ends the turn as before.
+4. **Image request check.** If the request asks for a generated image: the image tool must be called with `save_to`, the program must load that file, and the file must not be overwritten by other code.
+
+## Re-run, 2026-10-20 (Qore Code only)
+
+Same GPU, prompts, settings, time limit and grader. The 30B slot used **Qwen3.8-27B (dense, Q8)** instead of Qwen3-Coder 30B-A3B, so those rows are not a before/after comparison. The 80B rows are.
+
+All results were checked manually. Two automatic grades were wrong and are corrected below:
+- Tip calculator (27B): graded fail by the vision model ("tip and total $0.00"). The screenshot shows $100 bill, $10.00 tip, $110.00 total. Counted as pass.
+- Image full-loop (80B): graded pass. The image job was queued but never finished; the model drew a background in code and saved it under the same file name. Counted as fail. Both the grader and Qore Code's image request check now detect this.
+
+| Task | Qwen3.8-27B | Qwen3-Coder-Next 80B: before → after |
 |---|---|---|
-| Notes app (30B) | Its New Note button crashed (a missing import). Qore Code's own check found it only after all 40 steps were used, so nothing was left to fix it with | **Qore Code** |
-| Expense tracker (80B) | The app never opened, because a library it needs was not installed. Qore Code's finish check runs code checks, but it never started the program, and the 40 steps ran out | **Qore Code** |
-| 3D game (30B) | All 40 steps were used with most of the 10 minutes left. The project file was written in the wrong format | **Qore Code** (steps), the model (format) |
-| 3D game (80B) | The model wrote the same file again, unchanged. Qore Code's repeat detector stopped the run instead of pointing the model somewhere else | **Qore Code** |
-| Image full-loop (80B) | Asked to make its own background picture, the model drew one in code and never used Qore Code's picture tool. Nothing checked that the request was met | **Qore Code** |
+| Tip calculator | PASS (manual) | PASS → PASS |
+| To-do list that saves | PASS | PASS → PASS |
+| Notes with search + save | PASS | PASS → PASS |
+| 2D jump game | PASS | PASS → PASS |
+| 3D walk + pick up + counter | fail | fail → fail |
+| Debug a broken program | PASS | PASS → PASS |
+| 3D house model file | — | PASS → PASS |
+| Expense tracker + chart | — | fail → fail |
+| SSH script | — | PASS → PASS |
+| Image full-loop | — | fail → fail (manual) |
+| **Total** | **5 / 6** | **7 / 10 → 7 / 10** |
 
-With Llama 3.3 70B, most runs produced no working program, whatever the tool (Qore Code 2 of 9, opencode and Qwen Code 0 of 9). That part is mostly the model.
+No change on 80B. The app check worked as intended on the notes app (found an exception, model fixed it, check passed). Remaining failures:
 
-## Re-run with the first round of fixes (2026-10-20)
+| Task (model) | Cause |
+|---|---|
+| 3D game (80B) | Scene file had a parse error. Mid-turn trimming had replaced the earlier file content with a placeholder; the model copied the placeholder into its write and was refused 8 times, then the loop guard refused its real rewrites 7 times. |
+| 3D game (27B) | Scene loads, player does not move. 10-minute limit reached (~46 tokens/s). After a mid-turn trim the model treated an internal note as a re-sent request. |
+| Expense tracker (80B) | App check found the expense not saved after reopening. During repair the model read the 434-line file 48 times, because each page was trimmed from context 3 steps after it was read. |
+| Image full-loop (80B) | Code-drawn image saved over the queued image's path (see above). |
 
-We built the four fixes listed below into Qore Code and ran the Qore Code tasks again on the same GPU, with the same prompts, settings, 10-minute limit and grader. One change: in the 30B slot we used **Qwen3.8-27B (dense, Q8)** instead of Qwen3-Coder 30B-A3B, so those rows show a different model, not a before/after. The 80B rows are a straight before/after.
+Fixed after the re-run: a repair round reset the step-extension counter, allowing 100 steps instead of 80.
 
-We checked every result by hand, and corrected the machine grader in two places:
-- **Tip calculator (27B):** the grader's vision model said the tip and total stayed at $0.00. Its own screenshot shows a $100 bill, a $10.00 tip and a $110.00 total. We count it as a **pass**.
-- **Image full-loop (80B):** the grader said **pass**. By hand it is a **fail**. The model did call the picture tool, but did not wait for the picture. It drew a background in code and saved it under the same file name, so the game shows the drawing. The grader now requires a finished picture that the code did not draw. Qore Code's own check now catches this too.
+## Next (round 2)
 
-| Task | Qwen3.8-27B (new) | Qwen3-Coder-Next 80B: before → after |
-|---|---|---|
-| Simple app: tip calculator | **PASS** (by hand) | PASS → **PASS** |
-| Mid app: to-do list that saves | **PASS** | PASS → **PASS** |
-| Semi-complex app: notes with search + save | **PASS** | PASS → **PASS** |
-| 2D game: jump over obstacles | **PASS** | PASS → **PASS** |
-| 3D game: walk + pick up + counter | fail | fail → fail |
-| Debug: fix a broken program | **PASS** | PASS → **PASS** |
-| 3D modeling: a house file | — | PASS → **PASS** |
-| Serious app: expense tracker + chart | — | fail → fail |
-| SSH: script that logs in and lists files | — | PASS → **PASS** |
-| Image full-loop | — | fail → fail (by hand) |
-| **Total** | **5 of 6** | **7 of 10 → 7 of 10** |
+1. **Context trimming by hardware.** Size the trimming budget from the actual context window, GPU/CPU and memory of the machine; keep recent file contents and the latest version of each written file; measure prompt size with real token counts from the server rather than an estimate.
+2. **Loop guard.** Do not count Qore Code's own refusals (placeholder detected, unknown tool) as model failures.
+3. **Prompt structure.** Attach project state to the original request, not to internal notes.
+4. **Engine file check.** Validate Godot scene/script files right after they are written.
+5. **Benchmark v2.** Multiple runs per task, deterministic checks instead of a vision model where possible, more task types (bug fixes in existing code, refactoring, tests), and all prompts, outputs, logs and grader code published.
 
-**The 80B result did not move.** The new checks did their job in places: Qore Code started the notes app, found it failing, sent it back, and the model fixed it. But the three hard tasks still fail, and the run logs say why:
-
-| Task (model) | What went wrong | Whose problem |
-|---|---|---|
-| 3D game (80B) | The scene file had a format error. The model rewrote it the same way again and again; the new redirect fired, but did not change its approach. The conversation also grew past the model's 32k context window | **Qore Code** |
-| 3D game (27B) | The scene shows, but the player does not move. The 10 minutes ran out (this dense model writes about 46 tokens a second). Qore Code also shrank the conversation every few steps while saving little, and after one of these the model believed the request had been sent again | **Qore Code**, partly the model's speed |
-| Expense tracker (80B) | Qore Code started the app, added an expense, closed and reopened it, and found the expense gone. It sent that back, but the repair spent its steps reading the file in pieces while the conversation overflowed the context window. A bug also let one turn use 100 steps instead of the 80 maximum (fixed) | **Qore Code** |
-| Image full-loop (80B) | Drew the picture in code over the queued picture's file (see above) | **Qore Code** (now checked) |
-
-In 5 of the 16 runs, the conversation grew past the model's 32k context window. That is now the biggest single problem we see.
-
-## What we built in the first round
-
-1. **Use the program like a person before saying "done".**
-   - Qore Code starts the program the way you would and checks that it opens without crashing.
-   - It presses the keys a game should react to, and checks that it reacts.
-   - It types an entry, saves, closes the window, reopens it, and checks the entry is still there.
-   - Anything that fails goes back to the model as a bug report, with the error, within a limited number of repair rounds.
-2. **Don't stop while work is still moving.** When the step limit arrives while files are still changing, or while its own checks still fail, Qore Code grants up to two sets of 20 extra steps per turn. This is a count, not a timer: Qore Code still never cuts a model off on time.
-3. **When the model repeats itself, redirect it before stopping it.** Show it what is failing, and give it one chance to take a different approach.
-4. **Check that what was asked for was done.** If you ask Qore Code to make a picture itself, it checks that the picture tool was used, that the program loads the picture, and (since this re-run) that nothing else wrote over the picture's file.
-
-## What we are building next
-
-1. **Stay inside the context window.** Shrink the conversation in a way that frees real room, without making the request look new. Read large files by searching for what is needed, not in 100-line pages.
-2. **Break a repeat for real.** When a game engine file fails to load, check it with the engine right after it is written, and give the model the exact error line. If the same broken file comes back, steer the model to a different way of building it.
-3. **Spend fewer steps on overhead,** so slower local models finish inside the time limit.
-
-## How we will measure it
-
-We will run the same benchmark again: same models, prompts, settings, time limit and grader. We will publish the result here whether it goes up or down, and every number will stay as measured.
+The next run's results will be added here.
