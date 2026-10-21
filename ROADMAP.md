@@ -1,6 +1,6 @@
 # Roadmap
 
-Updated 2026-10-20. Latest version: 2026.10.20 (Windows and Linux; the Mac build is 2026.10.18).
+Updated 2026-10-21. Latest version: 2026.10.21 (Windows and Linux; the Mac build is 2026.10.18).
 
 ## Status
 
@@ -121,6 +121,23 @@ Chat mode failures:
 | Expense tracker (80B) | Imports matplotlib without telling the user to install it, so it does not start. |
 
 Setup: RTX PRO 6000 Blackwell 96 GB (re-run rows on the Workstation edition of the same GPU), Ollama, temperature 0.1, seed 20261019, 32k context. Each cell is a single run.
+
+## Picture test, 2026-10-21
+
+Each model was asked for a picture in the real app, once with a short prompt ("make me a picture of a red apple on a wooden table") and once with a longer one (a bakery front-page photo, saved in the project as bakery.png). A run passes when the picture tool was called, the picture finished at the size asked, and, for the longer prompt, bakery.png is the tool's own picture. Each model was also asked which operating system the computer runs.
+
+| Model | Before (2026.10.20) | After (2026.10.21) | OS question |
+|---|---|---|---|
+| Qwen3.8-27B | 2 / 2 | 2 / 2 | correct |
+| Qwen3-Coder 30B-A3B | 2 / 2 | 2 / 2 | correct |
+| Qwen3-Coder-Next 80B | 0 / 2 | 2 / 2 | correct |
+| Llama 3.3 70B | 0 / 2 | 2 / 2 | correct (was an error) |
+| **Total** | **4 / 8** | **8 / 8** | **4 / 4** |
+
+Causes and fixes:
+- 80B: the model waited for its picture inside the reply, while the picture waited for the reply to end. Pictures now pause only while the model is writing.
+- Llama 3.3: the request check asked a plain picture request to be saved and loaded by a program, and wrong argument names (`cmd`, `filename`) failed without saying why. A plain picture request is now complete when the picture is made; common wrong names are accepted and a missing argument is named.
+- OS question: short chat messages had no line saying which operating system the computer runs, so a model could say Linux on Windows. Light chat also sent a thinking value that Ollama 0.40 refuses, so every short chat with Llama 3.3 failed.
 
 ## Next
 

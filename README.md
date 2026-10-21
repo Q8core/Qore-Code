@@ -16,13 +16,13 @@ Ask for anything you want done to the files in a folder, in plain English: "What
 - **Chat mode:** switch it on to talk to the model directly, with no tools and no checks. Type `/chat` to switch on and `/agent` to switch back.
 - Desktop app plus a terminal version (`qorecode-cli`).
 
-## ⬇️ Download (2026.10.20)
+## ⬇️ Download (2026.10.21)
 
 | | |
 |---|---|
-| **Windows 10/11 (64-bit)** | [QoreCode-2026.10.20-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.20/QoreCode-2026.10.20-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
-| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build; the Mac build of 2026.10.20 is not ready yet). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
-| **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.20-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.20/QoreCode-2026.10.20-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
+| **Windows 10/11 (64-bit)** | [QoreCode-2026.10.21-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.21/QoreCode-2026.10.21-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
+| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build; the Mac build of 2026.10.21 is not ready yet). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
+| **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.21-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.21/QoreCode-2026.10.21-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
 
 ## How it compares — benchmark (2026-10-19)
 
