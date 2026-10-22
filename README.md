@@ -40,7 +40,7 @@
 | | |
 |---|---|
 | **Windows 10/11 (64-bit)** | [QoreCode-2026.10.22-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.22/QoreCode-2026.10.22-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
-| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
+| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18.3 build). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
 | **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.22-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.22/QoreCode-2026.10.22-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
 
 ## How it compares — benchmark (2026-10-19)
@@ -65,7 +65,7 @@ Qore Code checked against its 2026.10.22 release; the other tools from their own
 |---|---|---|---|---|
 | **What it is** | Coding agent with its own model engine | IDE extension + terminal agent | Code editor + assistant | Local model runner + chat app |
 | Own window (no IDE needed) | ✅ Files, editor, chats, restore points | Partial: terminal agent; chat lives in the IDE | ✅ It is the editor | ✅ Chat window |
-| Terminal / script mode | ✅ `qorecode-cli`, `-p`, `--json`, exit codes | ✅ `cn`, `cn -p` | Partial: separate Copilot CLI | Partial: `lms` manages models only |
+| Terminal / script mode | ✅ `qorecode-cli`, `-p`, `--json`, exit codes | ✅ `cn`, `cn -p` | Partial: separate Copilot CLI | ✅ `lms chat` |
 | **Models** | | | | |
 | Own built-in model engine | ✅ Runs `.gguf` on CPU and GPU | ❌ Needs Ollama, LM Studio or an API | ❌ Cloud, or local through a provider | ✅ llama.cpp, MLX |
 | Works without Ollama | ✅ Nothing else to install | Partial: local models need Ollama, LM Studio or similar | Partial: local models need a provider | ✅ |
@@ -93,7 +93,7 @@ Qore Code checked against its 2026.10.22 release; the other tools from their own
 | API for other apps | ❌ Engine is internal | ❌ | ❌ | ✅ `localhost:1234/v1` |
 | **Platform and cost** | | | | |
 | Windows / Linux | ✅ / ✅ | ✅ / ✅ | ✅ / ✅ | ✅ / ✅ |
-| macOS | ✅ Apple Silicon, macOS 14+ (2026.10.18 build) | ✅ | ✅ | ✅ |
+| macOS | ✅ Apple Silicon, macOS 14+ (2026.10.18.3 build) | ✅ | ✅ | ✅ |
 | Open source | ❌ | ✅ Apache 2.0 | Partial: editor yes, Copilot no | ❌ |
 | Price | Free | Free | Free tier; Pro about $10/month | Free |
 
