@@ -24,7 +24,7 @@ Failures in the shipped Qore Code build (from the run logs):
 | 3D game (80B) | Model rewrote the same file unchanged; the repeat detector ended the turn. |
 | Image full-loop (80B) | Model drew the background in code instead of calling the image tool; no check covered this. |
 
-Llama 3.3 70B produced no working program in most runs with any tool (Qore Code 2/9, others 0/9).
+Llama 3.3 70B Q8_0 produced no working program in most runs with any tool (Qore Code 2/9, others 0/9).
 
 ## Changes after the benchmark (round 1)
 
@@ -35,13 +35,13 @@ Llama 3.3 70B produced no working program in most runs with any tool (Qore Code 
 
 ## Re-run, 2026-10-20 (Qore Code only)
 
-Same GPU, prompts, settings, time limit and grader. The 30B slot used **Qwen3.8-27B (dense, Q8)** instead of Qwen3-Coder 30B-A3B, so those rows are not a before/after comparison. The 80B rows are.
+Same GPU, prompts, settings, time limit and grader. The 30B slot used **Qwen3.8-27B (dense, Q8_0)** instead of Qwen3-Coder 30B-A3B Q8_0, so those rows are not a before/after comparison. The 80B rows are.
 
 All results were checked manually. Two automatic grades were wrong and are corrected below:
 - Tip calculator (27B): graded fail by the vision model ("tip and total $0.00"). The screenshot shows $100 bill, $10.00 tip, $110.00 total. Counted as pass.
 - Image full-loop (80B): graded pass. The image job was queued but never finished; the model drew a background in code and saved it under the same file name. Counted as fail. Both the grader and Qore Code's image request check now detect this.
 
-| Task | Qwen3.8-27B | Qwen3-Coder-Next 80B: before → after |
+| Task | Qwen3.8-27B Q8_0 | Qwen3-Coder-Next 80B Q8_0: before → after |
 |---|---|---|
 | Tip calculator | PASS (manual) | PASS → PASS |
 | To-do list that saves | PASS | PASS → PASS |
@@ -128,16 +128,16 @@ Each model was asked for a picture in the real app, once with a short prompt ("m
 
 | Model | Before (2026.10.20) | After (2026.10.21) | OS question |
 |---|---|---|---|
-| Qwen3.8-27B | 2 / 2 | 2 / 2 | correct |
-| Qwen3-Coder 30B-A3B | 2 / 2 | 2 / 2 | correct |
-| Qwen3-Coder-Next 80B | 0 / 2 | 2 / 2 | correct |
-| Llama 3.3 70B | 0 / 2 | 2 / 2 | correct (was an error) |
+| Qwen3.8-27B Q8_0 | 2 / 2 | 2 / 2 | correct |
+| Qwen3-Coder 30B-A3B Q8_0 | 2 / 2 | 2 / 2 | correct |
+| Qwen3-Coder-Next 80B Q8_0 | 0 / 2 | 2 / 2 | correct |
+| Llama 3.3 70B Q8_0 | 0 / 2 | 2 / 2 | correct (was an error) |
 | **Total** | **4 / 8** | **8 / 8** | **4 / 4** |
 
 Causes and fixes:
 - 80B: the model waited for its picture inside the reply, while the picture waited for the reply to end. Pictures now pause only while the model is writing.
-- Llama 3.3: the request check asked a plain picture request to be saved and loaded by a program, and wrong argument names (`cmd`, `filename`) failed without saying why. A plain picture request is now complete when the picture is made; common wrong names are accepted and a missing argument is named.
-- OS question: short chat messages had no line saying which operating system the computer runs, so a model could say Linux on Windows. Light chat also sent a thinking value that Ollama 0.40 refuses, so every short chat with Llama 3.3 failed.
+- Llama 3.3 70B Q8_0: the request check asked a plain picture request to be saved and loaded by a program, and wrong argument names (`cmd`, `filename`) failed without saying why. A plain picture request is now complete when the picture is made; common wrong names are accepted and a missing argument is named.
+- OS question: short chat messages had no line saying which operating system the computer runs, so a model could say Linux on Windows. Light chat also sent a thinking value that Ollama 0.40 refuses, so every short chat with Llama 3.3 70B Q8_0 failed.
 
 ### Check on a Windows 11 laptop (2026.10.21)
 
@@ -165,7 +165,7 @@ All three are fixed in 2026.10.21.2: Esc Esc stops the reply and the second mess
 | A follow-up question in the app | 13.7 s | 4.2 s |
 | "Hi" in the app (same laptop, same hour, engines swapped) | over 80 s | 48–51 s |
 
-The answers are the same: on the reference set the integer path agrees with the exact path at 59 of 60 steps (the one difference is a near tie of 0.1), and the exact path still matches the reference word for word on the processor and on an NVIDIA GPU. Qwen3.8-27B, which keeps part of every layer on the processor, writes 3.5 times as fast (0.76 → 2.67 tokens/s on an RTX 4090 machine).
+The answers are the same: on the reference set the integer path agrees with the exact path at 59 of 60 steps (the one difference is a near tie of 0.1), and the exact path still matches the reference word for word on the processor and on an NVIDIA GPU. Qwen3.8-27B Q4_K_M, which keeps part of every layer on the processor, writes 3.5 times as fast (0.76 → 2.67 tokens/s on an RTX 4090 machine).
 
 Also: picking a model no longer freezes the window (it froze for 2.3 s on the laptop), and "Automatic" no longer uses a built-in Intel or AMD graphics chip, because the processor is now faster than it ("GPU only" still uses it).
 
