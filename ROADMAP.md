@@ -183,6 +183,26 @@ On Windows, the check that a game reacts to its keys and that an app keeps what 
 
 Smaller fixes: long build output keeps the first error; Godot is found on Windows; tests use the project's own virtual environment; watch commands (`tsc --watch`, `cargo watch`, …) no longer make the turn wait; "port already in use" says which program holds it; a failed edit points at the right line of a big file; a provider out of credit says so.
 
+## Code suggestions while typing, 2026.10.22
+
+Qore Code's editor now suggests code as you type: gray text at the cursor, Tab inserts it. A small
+fill-in-the-middle code model runs in a second engine process on the processor, so the chat model's
+memory of the conversation is left alone. Qwen2.5-Coder 0.5B Q8_0 is used on processors with fewer than 8 threads,
+Qwen2.5-Coder 1.5B Q4_K_M on 8 threads or more.
+
+Checked in the installed app, typing real keys (time from the last key to the first gray text):
+
+| Machine and model | Python: `def calculate_total(` | JavaScript: `for ` | HTML: `<li>` |
+|---|---|---|---|
+| Intel N150 laptop, Windows 11 · Qwen2.5-Coder 0.5B Q8_0 | 1.47 s | 0.70 s | 1.38 s |
+| Intel i5-12400F, Linux · Qwen2.5-Coder 1.5B Q4_K_M | 0.60 s | 0.37 s | 0.66 s |
+
+In every case Tab inserted a complete, correct block (a whole function, a `for` loop, a list item
+with its closing tag) and the file saved as shown. The suggestion engine stops when Qore Code closes.
+The Windows installer with the picture model is at Windows' 4 GB limit for one file, so that
+installer downloads the code model (0.53 GB, or 0.99 GB with 8 threads or more) the first time Edit
+is pressed; it took 37 s on the laptop. The other installers include both code models.
+
 ## Next
 
 1. **Time limit.** Both Agent mode failures reached the 10-minute limit. Run the app check earlier in long turns, so its result reaches the model while there is time to act on it.
