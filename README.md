@@ -94,7 +94,7 @@ Qore Code checked against its 2026.10.22 release; the other tools from their own
 | **Platform and cost** | | | | |
 | Windows / Linux | ✅ / ✅ | ✅ / ✅ | ✅ / ✅ | ✅ / ✅ |
 | macOS | ✅ Apple Silicon, macOS 14+ (2026.10.18.3 build) | ✅ | ✅ | ✅ |
-| Open source | ❌ | ✅ Apache 2.0 | Partial: VS Code and Copilot Chat yes, the Copilot service no | ❌ |
+| Open source | ❌ | ✅ Apache 2.0 | Partial: the Code - OSS and Copilot Chat source code yes; Microsoft's VS Code download and the Copilot service no | ❌ |
 | Price | Free | Free | Free tier; Pro about $10/month | Free |
 
 **Sources** (checked October 2026)
