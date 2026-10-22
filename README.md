@@ -1,22 +1,38 @@
-# Qore Code — a coding helper that runs on your own computer
+# Qore Code — a coding assistant that runs on your own computer
 
 **Free · Windows · Mac · Linux · works offline**
 
 <img width="1600" height="1000" alt="image" src="https://github.com/user-attachments/assets/816bb1a8-045e-4701-a9ae-a8ad9a2f204b" />
 
 
-Ask for anything you want done to the files in a folder, in plain English: "What does this project do?", "Find any bugs in this code and explain them simply", "Add comments to the main file so I can understand it". Qore Code reads and edits files **only inside the folder you pick**.
+**A coding assistant that runs on your own computer, with no internet needed.** You tell it in normal English or Arabic what you want done to the files in a folder, and it does the work. It only ever touches the folder you chose.
 
-- **Its own model engine is built in.** No Python, no Ollama, nothing else to install. Pick a model from the Download window, or add a `.gguf` file you already have (models from Ollama, LM Studio, GPT4All or Jan are found automatically).
-- **Fast on the processor:** no graphics card needed — on an Intel N150 laptop it writes about 4 times as fast as before (2026.10.21.3).
-- **Runs where it fits:** graphics card + memory, graphics card only, or processor only. A model bigger than your memory still runs from the drive, and you're told first.
-- **Undo for every change:** each turn that edits files gets its own restore point.
-- **Talk instead of typing:** press the microphone and speak in English or Arabic; your words are typed into the message box for you to check. Hands-free: say "Core, Core" then your request, "Hash, Hash, Hash" to send. Replies can be read aloud. Speech is turned into text on this computer; no audio leaves it.
-- **Built-in text reading from images (OCR)** in English and Arabic.
-- **Pictures:** ask in the chat (`/image a red lighthouse at sunset`). The picture model is a one-time 20.5 GB download inside the app.
-- **Optional cloud models:** already have an OpenAI, OpenRouter, DeepSeek or Groq account? Paste your own API key to use their models.
-- **Chat mode:** switch it on to talk to the model directly, with no tools and no checks. Type `/chat` to switch on and `/agent` to switch back.
-- Desktop app plus a terminal version (`qorecode-cli`).
+**What it does for you**
+- **Writes and fixes code:** new apps, games, websites and scripts; finds and fixes bugs; explains code simply; adds comments.
+- **Checks its own work before saying "finished":** it runs your project's tests. When it makes a game or an app, it opens it and tries it: it presses the keys you asked for (for example "space to jump") and checks the game reacts; for an app that should save things, it adds an entry, closes the app, opens it again and checks the entry is still there. If something is broken it fixes it first. On Windows this happens out of view, so it never interrupts what you are doing.
+- **Looks at what it built:** screenshots of games and apps, and it opens web pages and browser games to check for errors, missing files or a blank screen.
+- **Undo for everything:** every change gets a restore point; go back with one click.
+
+**Talk instead of typing**
+- Press the microphone and speak in English or Arabic; your words appear in the message box so you can check them before sending.
+- Hands-free: say "Core, Core" and then your request, and "Hash, Hash, Hash" to send it.
+- It can read its replies aloud.
+- Speech is turned into text on your own computer; no audio is sent anywhere.
+
+**More built in**
+- Reads text from images (English and Arabic).
+- Makes pictures: type `/image` and a description (the picture model is a one-time download inside the app).
+- Chat mode: just talk with the model, no file changes (`/chat`, back with `/agent`).
+- A full desktop window (files, editor, saved chats, restore points) plus a terminal version (`qorecode-cli`).
+
+**Why Qore Code**
+- **Nothing else to install:** its own model engine is built in; no Python, no Ollama. Pick a model in its Download window, or use a `.gguf` file you already have (models from Ollama, LM Studio, GPT4All or Jan are found).
+- **Works without a graphics card:** fast on a normal laptop processor, and it uses a graphics card when you have one.
+- **Runs big models:** a model bigger than your memory still runs from the disk, and you are told first.
+- **Private and offline:** your code and your voice never leave your computer. Cloud models (OpenAI, OpenRouter, DeepSeek, Groq) are optional, with your own key.
+- **Proven:** same models, same 24 tasks: Qore Code finished 14, opencode 9, Qwen Code 10.
+- **English and Arabic** throughout: chat, voice and text reading.
+- **Does ordinary developer work without refusing:** it adds no content rules of its own; the only things it refuses are the limits you set, such as a file you told it not to touch.
 
 ## ⬇️ Download (2026.10.21.3)
 
@@ -51,7 +67,7 @@ Later Qore Code runs with the fixes this benchmark led to, where it still fails,
 
 ## بالعربي
 
-**Qore Code** مساعد برمجة يعمل على جهازك وبدون إنترنت: اطلب ما تريد بلغة بسيطة، وهو يقرأ ويعدّل الملفات داخل المجلد الذي تختاره فقط. محرّك النماذج مدمج، فلا حاجة لتثبيت أي شيء آخر. مجاني لويندوز وماك ولينكس.
+**Qore Code** مساعد برمجة يعمل على جهازك وبدون إنترنت: اطلب ما تريد بلغة بسيطة، وهو يقرأ ويعدّل الملفات داخل المجلد الذي تختاره فقط. محرّك النماذج مدمج، فلا حاجة لتثبيت أي شيء آخر. مجاني لويندوز وماك ولينكس. تحدّث بدل الكتابة: اضغط زر الميكروفون وتكلّم بالعربية أو الإنجليزية، ويُحوَّل كلامك إلى نص على جهازك دون إرسال أي صوت إلى الإنترنت.
 
 </div>
 
