@@ -30,7 +30,7 @@
 - **Works without a graphics card:** fast on a normal laptop processor, and it uses a graphics card when you have one.
 - **Runs big models:** a model bigger than your memory still runs from the disk, and you are told first.
 - **Private and offline:** your code and your voice never leave your computer. Cloud models (OpenAI, OpenRouter, DeepSeek, Groq) are optional, with your own key.
-- **Proven:** same models, same 24 tasks: Qore Code finished 14, opencode 9, Qwen Code 10.
+- **Proven:** same local models (Qwen3-Coder 30B-A3B Q8_0, Qwen3-Coder-Next 80B Q8_0, Llama 3.3 70B Q8_0), same 24 tasks: Qore Code finished 14, opencode 9, Qwen Code 10.
 - **English and Arabic** throughout: chat, voice and text reading.
 - **Does ordinary developer work without refusing:** it adds no content rules of its own; the only things it refuses are the limits you set, such as a file you told it not to touch.
 
@@ -44,7 +44,7 @@
 
 ## How it compares — benchmark (2026-10-19)
 
-Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qwen3-Coder 30B, Qwen3-Coder-Next 80B, Llama 3.3 70B) with the **same plain-language prompts**, the same 10-minute limit and the same automatic grader. Nothing any tool produced was edited. Grading corrected 2026-10-20: six grader mistakes were fixed and every row was graded again (the first version said 12 / 7 / 7).
+Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qwen3-Coder 30B-A3B Q8_0, Qwen3-Coder-Next 80B Q8_0, Llama 3.3 70B Q8_0) with the **same plain-language prompts**, the same 10-minute limit and the same automatic grader. Nothing any tool produced was edited. Grading corrected 2026-10-20: six grader mistakes were fixed and every row was graded again (the first version said 12 / 7 / 7).
 
 | Tool | Tasks passed (of 24) |
 |---|---|
