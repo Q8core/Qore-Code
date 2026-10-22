@@ -11,6 +11,7 @@
 - **Writes and fixes code:** new apps, games, websites and scripts; finds and fixes bugs; explains code simply; adds comments.
 - **Checks its own work before saying "finished":** it runs your project's tests. When it makes a game or an app, it opens it and tries it: it presses the keys you asked for (for example "space to jump") and checks the game reacts; for an app that should save things, it adds an entry, closes the app, opens it again and checks the entry is still there. If something is broken it fixes it first. On Windows this happens out of view, so it never interrupts what you are doing.
 - **Looks at what it built:** screenshots of games and apps, and it opens web pages and browser games to check for errors, missing files or a blank screen.
+- **Suggests code as you type:** in the editor, gray text appears at the cursor with the rest of the line or the next lines; press Tab to insert it, Esc to hide it. A small code model on your own computer does this (Qwen2.5-Coder 1.5B Q4_K_M, or 0.5B Q8_0 on processors with fewer than 8 threads).
 - **Undo for everything:** every change gets a restore point; go back with one click.
 
 **Talk instead of typing**
@@ -28,19 +29,19 @@
 **Why Qore Code**
 - **Nothing else to install:** its own model engine is built in; no Python, no Ollama. Pick a model in its Download window, or use a `.gguf` file you already have (models from Ollama, LM Studio, GPT4All or Jan are found).
 - **Works without a graphics card:** fast on a normal laptop processor, and it uses a graphics card when you have one.
-- **Runs big models:** a model bigger than your memory still runs from the disk, and you are told first.
+- **Runs big models:** a Mixture-of-Experts model bigger than your memory still runs, reading from the disk, and you are told first.
 - **Private and offline:** your code and your voice never leave your computer. Cloud models (OpenAI, OpenRouter, DeepSeek, Groq) are optional, with your own key.
 - **Proven:** same local models (Qwen3-Coder 30B-A3B Q8_0, Qwen3-Coder-Next 80B Q8_0, Llama 3.3 70B Q8_0), same 24 tasks: Qore Code finished 14, opencode 9, Qwen Code 10.
 - **English and Arabic** throughout: chat, voice and text reading.
 - **Does ordinary developer work without refusing:** it adds no content rules of its own; the only things it refuses are the limits you set, such as a file you told it not to touch.
 
-## ⬇️ Download (2026.10.21.3)
+## ⬇️ Download (2026.10.22)
 
 | | |
 |---|---|
-| **Windows 10/11 (64-bit)** | [QoreCode-2026.10.21.3-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.21.3/QoreCode-2026.10.21.3-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
-| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build; the Mac build of 2026.10.21 is not ready yet). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
-| **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.21.3-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.21.3/QoreCode-2026.10.21.3-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
+| **Windows 10/11 (64-bit)** | [QoreCode-2026.10.22-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.22/QoreCode-2026.10.22-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
+| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build: no code suggestions yet, and not the faster engine). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
+| **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.22-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.22/QoreCode-2026.10.22-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
 
 ## How it compares — benchmark (2026-10-19)
 
