@@ -1,6 +1,6 @@
 # Qore Code vs opencode vs Qwen Code — local Q8 coding-agent benchmark
 
-Same local Q8 models, same plain-language prompts, same 10-minute limit, same automatic grader. Nothing any tool produced was edited. Measured 2026-10-19; grading corrected 2026-10-20 (six grader fixes, every row re-graded — see the Notes in the full report). Full report (Word): [Qore-Code-Benchmark-2026-10-19.docx](Qore-Code-Benchmark-2026-10-19.docx).
+Same local Q8 models, same plain-language prompts, same 10-minute limit, same automatic grader. Nothing any tool produced was edited. Measured 2026-10-19. Full report (Word): [Qore-Code-Benchmark-2026-10-19.docx](Qore-Code-Benchmark-2026-10-19.docx).
 
 ## Headline
 
@@ -39,27 +39,6 @@ Same local Q8 models, same plain-language prompts, same 10-minute limit, same au
 | SSH: script that logs in and lists files | Qwen3-Coder-Next 80B Q8_0 (MoE) | **PASS** · 133s | **PASS** · 126s | **PASS** · 97s |
 | SSH: script that logs in and lists files | Llama 3.3 70B Q8_0 (dense) | fail · 88s | fail · 43s | fail · 34s |
 
-## Qore Code after the fixes this benchmark led to
-
-| Task | Model | Shipped build | Fixed build |
-|---|---|---|---|
-| Simple app: tip calculator | Qwen3-Coder 30B-A3B Q8_0 (MoE) | **PASS** · 600s (cap) | **PASS** · 68s |
-| Simple app: tip calculator | Qwen3-Coder-Next 80B Q8_0 (MoE) | **PASS** · 107s | **PASS** · 51s |
-| Mid app: to-do list that saves | Qwen3-Coder 30B-A3B Q8_0 (MoE) | **PASS** · 362s | **PASS** · 192s |
-| Mid app: to-do list that saves | Qwen3-Coder-Next 80B Q8_0 (MoE) | **PASS** · 193s | **PASS** · 97s |
-| Semi-complex app: notes with search + save | Qwen3-Coder 30B-A3B Q8_0 (MoE) | **PASS** · 312s | fail · 210s |
-| Semi-complex app: notes with search + save | Qwen3-Coder-Next 80B Q8_0 (MoE) | fail · 273s | **PASS** · 531s |
-| 2D game: jump over obstacles | Qwen3-Coder 30B-A3B Q8_0 (MoE) | **PASS** · 600s (cap) | **PASS** · 232s |
-| 2D game: jump over obstacles | Qwen3-Coder-Next 80B Q8_0 (MoE) | **PASS** · 228s | **PASS** · 173s |
-| 3D game: walk + pick up + counter | Qwen3-Coder 30B-A3B Q8_0 (MoE) | **PASS** · 600s (cap) | fail · 188s |
-| 3D game: walk + pick up + counter | Qwen3-Coder-Next 80B Q8_0 (MoE) | fail · 372s | fail · 427s |
-| Debug: fix a broken program | Qwen3-Coder 30B-A3B Q8_0 (MoE) | **PASS** · 17s | **PASS** · 25s |
-| Debug: fix a broken program | Qwen3-Coder-Next 80B Q8_0 (MoE) | **PASS** · 50s | **PASS** · 38s |
-| 3D modeling: a house file | Qwen3-Coder-Next 80B Q8_0 (MoE) | **PASS** · 117s | **PASS** · 285s |
-| Serious app: expense tracker + chart | Qwen3-Coder-Next 80B Q8_0 (MoE) | fail · 600s (cap) | fail · 366s |
-| SSH: script that logs in and lists files | Qwen3-Coder-Next 80B Q8_0 (MoE) | **PASS** · 133s | **PASS** · 31s |
-| Image full-loop | Qwen3-Coder-Next 80B Q8_0 (MoE) | fail · 2401s (cap) | fail · 442s |
-
 Setup: 1 × RTX PRO 6000 Blackwell 96 GB · Ollama 0.40.6 · temperature 0.1, seed 20261019, 32k context · Qore Code 2026.10.18 (844248d) · opencode 1.19.3 · Qwen Code 0.15.10.
 
 ## Built-in engine speed, 2026.10.21.3
@@ -76,4 +55,4 @@ Qore Code's own engine (no Ollama), temperature 0, same model file in both colum
 
 Same answers: perplexity 17.50 → 17.49 on the same text; along the reference answers the new path picks the same token at 59 of 60 steps (the other is a near tie, gap 0.1). The exact path still matches the reference token for token on the processor, on the card, and split between them.
 
-Where Qore Code still fails, why, and what we are fixing next: **[ROADMAP.md](ROADMAP.md)**.
+More measurements: **[ROADMAP.md](ROADMAP.md)**.
