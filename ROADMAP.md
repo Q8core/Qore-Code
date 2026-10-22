@@ -1,6 +1,6 @@
 # Roadmap
 
-Updated 2026-10-21. Latest version: 2026.10.21 (Windows and Linux; the Mac build is 2026.10.18).
+Updated 2026-10-22. Latest version: 2026.10.21.3 (Windows and Linux; the Mac build is 2026.10.18).
 
 ## Status
 
@@ -139,7 +139,52 @@ Causes and fixes:
 - Llama 3.3: the request check asked a plain picture request to be saved and loaded by a program, and wrong argument names (`cmd`, `filename`) failed without saying why. A plain picture request is now complete when the picture is made; common wrong names are accepted and a missing argument is named.
 - OS question: short chat messages had no line saying which operating system the computer runs, so a model could say Linux on Windows. Light chat also sent a thinking value that Ollama 0.40 refuses, so every short chat with Llama 3.3 failed.
 
+### Check on a Windows 11 laptop (2026.10.21)
+
+Installed over 2026.10.20 on a Windows 11 laptop with no graphics card (Intel N150, 12 GB memory). Models ran on the processor.
+
+| Check | Result |
+|---|---|
+| Asked which operating system it runs (chat and agent mode) | "This computer is running Windows 11." |
+| `/image a red lighthouse at sunset` | The picture appeared in the chat after about 16 minutes |
+| Enter sends, no welcome screen | Yes |
+| Esc Esc while a short reply was written, with a second message typed during the reply | **Failed:** an error message, the model marked unavailable and the second message refused |
+| Delete all, with only a picture and a stopped reply on screen | **Failed:** nothing happened |
+| Status bar after the picture was done | **Failed:** still said "queued, about 15 min", and "Ready" no longer appeared |
+
+All three are fixed in 2026.10.21.2: Esc Esc stops the reply and the second message is sent next; only a provider failure marks a model unavailable; Delete all asks and deletes the chat on screen, or says there is nothing to delete; the status bar says when a picture is ready, failed or was stopped.
+
+## Speed and Windows checks, 2026.10.21.3
+
+**Faster without a graphics card.** Measured on a Windows 11 laptop with an Intel N150 and no graphics card. The window was never what froze: a probe sending messages to it from outside every 50 ms found pauses of at most 70 ms. The time went into the built-in engine's math on the processor. The engine now multiplies the model's packed weights with 8-bit integer instructions instead of unpacking every weight for every word.
+
+| Qwen3-4B Q4_K_M on the N150 processor | 2026.10.21.2 | 2026.10.21.3 |
+|---|---|---|
+| Writing the answer | 0.75 tokens/s | 3–4 tokens/s |
+| Reading the request | 3.7 tokens/s | 7 tokens/s |
+| A follow-up question in the app | 13.7 s | 4.2 s |
+| "Hi" in the app (same laptop, same hour, engines swapped) | over 80 s | 48–51 s |
+
+The answers are the same: on the reference set the integer path agrees with the exact path at 59 of 60 steps (the one difference is a near tie of 0.1), and the exact path still matches the reference word for word on the processor and on an NVIDIA GPU. Qwen3.8-27B, which keeps part of every layer on the processor, writes 3.5 times as fast (0.76 → 2.67 tokens/s on an RTX 4090 machine).
+
+Also: picking a model no longer freezes the window (it froze for 2.3 s on the laptop), and "Automatic" no longer uses a built-in Intel or AMD graphics chip, because the processor is now faster than it ("GPU only" still uses it).
+
+**Programs the model starts, on Windows.** Checked on the same laptop with real requests:
+
+| Check | Result |
+|---|---|
+| "Make a pygame game … run it" | The game ran in the background with the project's own `.venv`; the turn continued and ended; nothing was left running |
+| "A notes app that keeps my notes after I close it" | Qore Code used the app before "done" (typed a note, closed, reopened); passed |
+| "A browser game in index.html … check it in the browser" | Opened in a headless browser; the picture and the page's errors came back |
+| "Start a Flask app and leave it running" | Started in the background; the turn ended instead of waiting |
+| A program that prints Arabic | Printed correctly (before: UnicodeEncodeError) |
+
+The app check (keys pressed in a game, an entry kept after closing) now runs on Windows too, on a hidden desktop: nothing appears on the screen and nothing takes the keyboard (checked while typing in another window).
+
+Smaller fixes: long build output keeps the first error; Godot is found on Windows; tests use the project's own virtual environment; watch commands (`tsc --watch`, `cargo watch`, …) no longer make the turn wait; "port already in use" says which program holds it; a failed edit points at the right line of a big file; a provider out of credit says so.
+
 ## Next
 
 1. **Time limit.** Both Agent mode failures reached the 10-minute limit. Run the app check earlier in long turns, so its result reaches the model while there is time to act on it.
-2. **Benchmark v2.** Multiple runs per task, deterministic checks instead of a vision model where possible, more task types (bug fixes in existing code, refactoring, tests), and all prompts, outputs, logs and grader code published.
+2. **Qwen3.8 on the graphics card.** These models keep the feed-forward part of every layer on the processor, even on a large card. Moving it to the card when it fits.
+3. **Benchmark v2.** Multiple runs per task, deterministic checks instead of a vision model where possible, more task types (bug fixes in existing code, refactoring, tests), and all prompts, outputs, logs and grader code published.
