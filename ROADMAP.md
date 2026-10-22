@@ -179,7 +179,7 @@ Also: picking a model no longer freezes the window (it froze for 2.3 s on the la
 | "Start a Flask app and leave it running" | Started in the background; the turn ended instead of waiting |
 | A program that prints Arabic | Printed correctly (before: UnicodeEncodeError) |
 
-The app check (keys pressed in a game, an entry kept after closing) now runs on Windows too, on a hidden desktop: nothing appears on the screen and nothing takes the keyboard (checked while typing in another window).
+On Windows, the check that a game reacts to its keys and that an app keeps what you typed now runs too, without showing anything on the screen or taking the keyboard (checked while typing in another window).
 
 Smaller fixes: long build output keeps the first error; Godot is found on Windows; tests use the project's own virtual environment; watch commands (`tsc --watch`, `cargo watch`, …) no longer make the turn wait; "port already in use" says which program holds it; a failed edit points at the right line of a big file; a provider out of credit says so.
 
