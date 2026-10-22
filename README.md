@@ -64,20 +64,20 @@ Qore Code checked against its 2026.10.22 release; the other tools from their own
 | | Qore Code | Continue | VS Code + Copilot | LM Studio |
 |---|---|---|---|---|
 | **What it is** | Coding agent with its own model engine | IDE extension + terminal agent | Code editor + assistant | Local model runner + chat app |
-| Own window (no IDE needed) | ✅ Files, editor, chats, restore points | Partial: terminal agent; chat lives in the IDE | ✅ It is the editor | ✅ Chat window |
+| Own window (no IDE needed) | ✅ Files, editor, chats, restore points | Partial: terminal agent, or chat inside the IDE | ✅ It is the editor | ✅ Chat window |
 | Terminal / script mode | ✅ `qorecode-cli`, `-p`, `--json`, exit codes | ✅ `cn`, `cn -p` | Partial: separate Copilot CLI | ✅ `lms chat` |
 | **Models** | | | | |
 | Own built-in model engine | ✅ Runs `.gguf` on CPU and GPU | ❌ Needs Ollama, LM Studio or an API | ❌ Cloud, or local through a provider | ✅ llama.cpp, MLX |
-| Works without Ollama | ✅ Nothing else to install | Partial: local models need Ollama, LM Studio or similar | Partial: local models need a provider | ✅ |
-| Uses your Ollama models | ✅ Runs their files directly, or uses your Ollama server | ✅ Through Ollama | Partial: through Ollama | ❌ Own model library |
+| Works without Ollama | ✅ Nothing else to install | ✅ Local models need a server such as LM Studio | ✅ Cloud by default; local models need a provider | ✅ |
+| Uses your Ollama models | ✅ Runs their files directly, or uses your Ollama server | ✅ Through Ollama | Partial: through Ollama | Partial: import the model file by hand |
 | Uses your LM Studio models | ✅ Finds the files, detects a running LM Studio | ✅ | Partial: bring your own model | It is LM Studio |
 | Model bigger than memory | ✅ Mixture-of-Experts models run from the disk | Depends on the server | Depends on the server | Unclear |
 | Cloud models | ✅ Optional: OpenAI, OpenRouter, DeepSeek, Groq | ✅ Many providers | ✅ Many cloud models | ❌ |
 | Works fully offline | ✅ | ✅ With a local model | ❌ Needs a GitHub sign-in | ✅ |
 | **Coding** | | | | |
 | Suggestions as you type | ✅ Gray text, Tab inserts; offline on the processor | ✅ In the IDE extension | ✅ | ❌ |
-| Agent edits files | ✅ | ✅ | ✅ Agent mode | ❌ Chat only |
-| Runs commands and tests | ✅ Runs the project's tests before saying done | ✅ | ✅ | ❌ |
+| Agent edits files | ✅ | ✅ | ✅ Agent mode | ❌ Not built in (only through an MCP tool) |
+| Runs commands and tests | ✅ Runs the project's tests before saying done | ✅ | ✅ | ❌ Not built in (only through an MCP tool) |
 | Tries the app it built | ✅ Presses keys, reopens apps, checks web pages | ❌ Not built in | Unclear | ❌ |
 | Undo / restore points | ✅ Every change, one click | Partial: editor undo | ✅ Checkpoints | — |
 | Understands the codebase | ✅ Ranked file map + language server | ✅ Index + @-context | ✅ Workspace index | ❌ |
@@ -94,8 +94,14 @@ Qore Code checked against its 2026.10.22 release; the other tools from their own
 | **Platform and cost** | | | | |
 | Windows / Linux | ✅ / ✅ | ✅ / ✅ | ✅ / ✅ | ✅ / ✅ |
 | macOS | ✅ Apple Silicon, macOS 14+ (2026.10.18.3 build) | ✅ | ✅ | ✅ |
-| Open source | ❌ | ✅ Apache 2.0 | Partial: editor yes, Copilot no | ❌ |
+| Open source | ❌ | ✅ Apache 2.0 | Partial: VS Code and Copilot Chat yes, the Copilot service no | ❌ |
 | Price | Free | Free | Free tier; Pro about $10/month | Free |
+
+**Sources** (checked October 2026)
+- Qore Code: [2026.10.22 release](https://github.com/Q8core/Qore-Code/releases/tag/v2026.10.22) · [ROADMAP.md](https://github.com/Q8core/Qore-Code/blob/main/ROADMAP.md) · [BENCHMARK.md](https://github.com/Q8core/Qore-Code/blob/main/BENCHMARK.md)
+- Continue: [documentation](https://docs.continue.dev) · [terminal agent `cn`](https://docs.continue.dev/cli/overview) · [source code and license](https://github.com/continuedev/continue)
+- VS Code + Copilot: [Copilot in VS Code](https://code.visualstudio.com/docs/copilot/overview) · [agent hooks](https://code.visualstudio.com/docs/copilot/customization/hooks) · [plans and prices](https://github.com/features/copilot/plans)
+- LM Studio: [app documentation](https://lmstudio.ai/docs/app) · [`lms` command line](https://lmstudio.ai/docs/cli) · [local server API](https://lmstudio.ai/docs/developer)
 
 ## Good to know
 
