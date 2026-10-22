@@ -8,21 +8,23 @@
 Ask for anything you want done to the files in a folder, in plain English: "What does this project do?", "Find any bugs in this code and explain them simply", "Add comments to the main file so I can understand it". Qore Code reads and edits files **only inside the folder you pick**.
 
 - **Its own model engine is built in.** No Python, no Ollama, nothing else to install. Pick a model from the Download window, or add a `.gguf` file you already have (models from Ollama, LM Studio, GPT4All or Jan are found automatically).
+- **Fast on the processor:** no graphics card needed — on an Intel N150 laptop it writes about 4 times as fast as before (2026.10.21.3).
 - **Runs where it fits:** graphics card + memory, graphics card only, or processor only. A model bigger than your memory still runs from the drive, and you're told first.
 - **Undo for every change:** each turn that edits files gets its own restore point.
+- **Talk instead of typing:** press the microphone and speak in English or Arabic; your words are typed into the message box for you to check. Hands-free: say "Core, Core" then your request, "Hash, Hash, Hash" to send. Replies can be read aloud. Speech is turned into text on this computer; no audio leaves it.
 - **Built-in text reading from images (OCR)** in English and Arabic.
 - **Pictures:** ask in the chat (`/image a red lighthouse at sunset`). The picture model is a one-time 20.5 GB download inside the app.
 - **Optional cloud models:** already have an OpenAI, OpenRouter, DeepSeek or Groq account? Paste your own API key to use their models.
 - **Chat mode:** switch it on to talk to the model directly, with no tools and no checks. Type `/chat` to switch on and `/agent` to switch back.
 - Desktop app plus a terminal version (`qorecode-cli`).
 
-## ⬇️ Download (2026.10.21)
+## ⬇️ Download (2026.10.21.3)
 
 | | |
 |---|---|
-| **Windows 10/11 (64-bit)** | [QoreCode-2026.10.21-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.21/QoreCode-2026.10.21-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
+| **Windows 10/11 (64-bit)** | [QoreCode-2026.10.21.3-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.21.3/QoreCode-2026.10.21.3-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
 | **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build; the Mac build of 2026.10.21 is not ready yet). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
-| **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.21-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.21/QoreCode-2026.10.21-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
+| **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.21.3-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.21.3/QoreCode-2026.10.21.3-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
 
 ## How it compares — benchmark (2026-10-19)
 
