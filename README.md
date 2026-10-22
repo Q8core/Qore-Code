@@ -40,12 +40,12 @@
 | | |
 |---|---|
 | **Windows 10/11 (64-bit)** | [QoreCode-2026.10.22-windows-setup.exe](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.22/QoreCode-2026.10.22-windows-setup.exe). One installer file, no admin needed. If Windows says *"Windows protected your PC"* (the file is not code-signed), click **More info → Run anyway**. |
-| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build: no code suggestions yet, and not the faster engine). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
+| **Mac** (Apple Silicon M1–M4, macOS 14+) | [QoreCode-2026.10.18.3-macos.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.18.3/QoreCode-2026.10.18.3-macos.zip) (the 2026.10.18 build). Double-click it and drag **Qore Code.app** into Applications. The first time, macOS says it cannot check the app (it is not signed with a paid Apple certificate): click **Done**, then **System Settings → Privacy & Security → Open Anyway**. |
 | **Linux** (Mint 22+ / Ubuntu 24.04+, 64-bit) | [QoreCode-2026.10.22-linux.zip](https://github.com/Q8core/Qore-Code/releases/download/v2026.10.22/QoreCode-2026.10.22-linux.zip). Unzip it and double-click **QoreCode**, or run `./QoreCode`. `./Add-to-applications-menu.sh` adds a menu entry. |
 
 ## How it compares — benchmark (2026-10-19)
 
-Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qwen3-Coder 30B-A3B Q8_0, Qwen3-Coder-Next 80B Q8_0, Llama 3.3 70B Q8_0) with the **same plain-language prompts**, the same 10-minute limit and the same automatic grader. Nothing any tool produced was edited. Grading corrected 2026-10-20: six grader mistakes were fixed and every row was graded again (the first version said 12 / 7 / 7).
+Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qwen3-Coder 30B-A3B Q8_0, Qwen3-Coder-Next 80B Q8_0, Llama 3.3 70B Q8_0) with the **same plain-language prompts**, the same 10-minute limit and the same automatic grader. Nothing any tool produced was edited.
 
 | Tool | Tasks passed (of 24) |
 |---|---|
@@ -55,9 +55,47 @@ Qore Code, opencode and Qwen Code, each driving the **same local Q8 models** (Qw
 
 Every task, model and time: **[BENCHMARK.md](BENCHMARK.md)** · full report (Word): **[Qore-Code-Benchmark-2026-10-19.docx](Qore-Code-Benchmark-2026-10-19.docx)**
 
-Each task was run once per tool and model, so a difference of a few tasks is within run-to-run variation.
+Each task was run once per tool and model. Speed measurements and later results: **[ROADMAP.md](ROADMAP.md)**
 
-Later Qore Code runs with the fixes this benchmark led to, where it still fails, and what is next: **[ROADMAP.md](ROADMAP.md)**
+## Compared with other coding tools
+
+Qore Code checked against its 2026.10.22 release; the other tools from their own documentation, October 2026. "Unclear" means we could not confirm it.
+
+| | Qore Code | Continue | VS Code + Copilot | LM Studio |
+|---|---|---|---|---|
+| **What it is** | Coding agent with its own model engine | IDE extension + terminal agent | Code editor + assistant | Local model runner + chat app |
+| Own window (no IDE needed) | ✅ Files, editor, chats, restore points | Partial: terminal agent; chat lives in the IDE | ✅ It is the editor | ✅ Chat window |
+| Terminal / script mode | ✅ `qorecode-cli`, `-p`, `--json`, exit codes | ✅ `cn`, `cn -p` | Partial: separate Copilot CLI | Partial: `lms` manages models only |
+| **Models** | | | | |
+| Own built-in model engine | ✅ Runs `.gguf` on CPU and GPU | ❌ Needs Ollama, LM Studio or an API | ❌ Cloud, or local through a provider | ✅ llama.cpp, MLX |
+| Works without Ollama | ✅ Nothing else to install | Partial: local models need Ollama, LM Studio or similar | Partial: local models need a provider | ✅ |
+| Uses your Ollama models | ✅ Runs their files directly, or uses your Ollama server | ✅ Through Ollama | Partial: through Ollama | ❌ Own model library |
+| Uses your LM Studio models | ✅ Finds the files, detects a running LM Studio | ✅ | Partial: bring your own model | It is LM Studio |
+| Model bigger than memory | ✅ Mixture-of-Experts models run from the disk | Depends on the server | Depends on the server | Unclear |
+| Cloud models | ✅ Optional: OpenAI, OpenRouter, DeepSeek, Groq | ✅ Many providers | ✅ Many cloud models | ❌ |
+| Works fully offline | ✅ | ✅ With a local model | ❌ Needs a GitHub sign-in | ✅ |
+| **Coding** | | | | |
+| Suggestions as you type | ✅ Gray text, Tab inserts; offline on the processor | ✅ In the IDE extension | ✅ | ❌ |
+| Agent edits files | ✅ | ✅ | ✅ Agent mode | ❌ Chat only |
+| Runs commands and tests | ✅ Runs the project's tests before saying done | ✅ | ✅ | ❌ |
+| Tries the app it built | ✅ Presses keys, reopens apps, checks web pages | ❌ Not built in | Unclear | ❌ |
+| Undo / restore points | ✅ Every change, one click | Partial: editor undo | ✅ Checkpoints | — |
+| Understands the codebase | ✅ Ranked file map + language server | ✅ Index + @-context | ✅ Workspace index | ❌ |
+| Plain chat mode | ✅ `/chat` | ✅ | ✅ | ✅ |
+| **Extras** | | | | |
+| Voice in and out | ✅ English + Arabic, offline, hands-free | ❌ | Partial: VS Code Speech add-on | ❌ |
+| Built-in text reading from images (OCR) | ✅ English + Arabic, offline | ❌ Only through a vision model | ❌ Only through a vision model | ❌ Only through a vision model |
+| Makes pictures | ✅ `/image` | ❌ | ❌ | ❌ |
+| Sub-agents | ✅ | Unclear | ✅ | ❌ |
+| MCP tools | ✅ | ✅ | ✅ | ✅ |
+| Hooks (block / log tool calls) | ✅ | Unclear | ✅ | ❌ |
+| Memory across sessions | ✅ | Partial: rules files | Partial | ❌ |
+| API for other apps | ❌ Engine is internal | ❌ | ❌ | ✅ `localhost:1234/v1` |
+| **Platform and cost** | | | | |
+| Windows / Linux | ✅ / ✅ | ✅ / ✅ | ✅ / ✅ | ✅ / ✅ |
+| macOS | ✅ Apple Silicon, macOS 14+ (2026.10.18 build) | ✅ | ✅ | ✅ |
+| Open source | ❌ | ✅ Apache 2.0 | Partial: editor yes, Copilot no | ❌ |
+| Price | Free | Free | Free tier; Pro about $10/month | Free |
 
 ## Good to know
 
